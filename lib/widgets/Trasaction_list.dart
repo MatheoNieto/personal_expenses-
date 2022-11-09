@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
-import 'package:intl/intl.dart';
+import './Transaction.dart';
 
 class TransactionList extends StatefulWidget{
   @override
@@ -19,41 +19,7 @@ class _TransactionListState extends State<TransactionList>{
   Widget build(BuildContext context){
     return Column(
       children: _userTransactions.map((transaction){
-        return Card(
-          child: Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.purple,
-                    width: 2
-                  )
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Text('\$${transaction.amount}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.purple
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(transaction.title, style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  Text( DateFormat('yyyy-MM-DD').format(transaction.date), style: TextStyle(color: Colors.grey),),
-                ],
-              )
-
-            ],
-          ),
-        );
+        return TransactionInfo(transaction.amount, transaction.date, transaction.title);
       }).toList()
     );
   }
