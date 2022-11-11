@@ -6,7 +6,7 @@ class TransactionInfo extends StatelessWidget {
   DateTime date;
   String title;
 
-  TransactionInfo(this.amount, this.date, this.title);
+  TransactionInfo(this.amount, this.date, this.title, {super.key});
 
 
   @override

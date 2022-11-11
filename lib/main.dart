@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/Trasaction_list.dart';
 import 'widgets/CreateTransaction.dart';
+import '../models/transaction.dart';
 
 
 
@@ -16,7 +17,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>{
+  final List<Transaction> _userTransactions = [
+    Transaction(id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(id: 't2', title: 'weekly groceries', amount: 16.53, date: DateTime.now()),
+  ];
+
+  void updateTransactions(Transaction newTransaction){
+    setState(() {
+      _userTransactions.add(newTransaction);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +43,8 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          CreateTransaction(),
-          TransactionList()
+          CreateTransaction((newTransaction)=> updateTransactions(newTransaction)),
+          TransactionList(_userTransactions),
         ],
       ),
     );
