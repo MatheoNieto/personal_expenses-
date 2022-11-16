@@ -9,10 +9,15 @@ class TransactionList extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Column(
-      children: userTransactions.map((transaction){
-        return TransactionInfo(transaction.amount, transaction.date, transaction.title);
-      }).toList()
-    );
+    return  Container(
+        height: 300,
+        child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
+            child: Column(
+            children: userTransactions.map((transaction){
+              return TransactionInfo(transaction.amount, transaction.date, transaction.title);
+            }).toList()
+        )),
+      );
   }
 }

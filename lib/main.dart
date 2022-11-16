@@ -41,11 +41,14 @@ class _MyHomePageState extends State<MyHomePage>{
       appBar: AppBar(
         title: Text('Money App'),
       ),
-      body: Column(
-        children: [
-          CreateTransaction((newTransaction)=> updateTransactions(newTransaction)),
-          TransactionList(_userTransactions),
-        ],
+      body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Column(
+          children: [
+            CreateTransaction((newTransaction)=> updateTransactions(newTransaction)),
+            TransactionList(_userTransactions),
+          ],
+        ),
       ),
     );
   }
