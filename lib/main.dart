@@ -34,22 +34,31 @@ class _MyHomePageState extends State<MyHomePage>{
     });
   }
 
+  void _startAddNewTransaction(BuildContext ctx){
+    showModalBottomSheet(context: ctx, builder: (_){
+     return GestureDetector(behavior: HitTestBehavior.opaque, onTap: (){}, child:CreateTransaction((newTransaction)=> updateTransactions(newTransaction)));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Money App'),
+        actions: [
+          IconButton(onPressed: ()=>_startAddNewTransaction(context), icon: Icon(Icons.add))
+        ],
       ),
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
         child: Column(
           children: [
-            CreateTransaction((newTransaction)=> updateTransactions(newTransaction)),
             TransactionList(_userTransactions),
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(child: Icon(Icons.add), onPressed: ()=>_startAddNewTransaction(context),),
     );
   }
 }

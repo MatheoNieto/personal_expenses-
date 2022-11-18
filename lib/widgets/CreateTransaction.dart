@@ -9,7 +9,15 @@ class CreateTransaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amounController = TextEditingController();
 
-  void _addTransaction(String titleTransaction, double valueTransaction){
+  void _addTransaction(){
+
+    final titleTransaction = titleController.text;
+    final valueTransaction = double.parse(amounController.text);
+
+    if(titleTransaction.isEmpty || valueTransaction < 1){
+      return;
+    }
+
     final newTransaction = Transaction(id: DateTime.now().toString(), title: titleTransaction, amount: valueTransaction, date: DateTime.now());
     onCreatedTransaction(newTransaction);
   }
@@ -23,8 +31,8 @@ class CreateTransaction extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Column(
           children: [
-            TextField(decoration: InputDecoration(labelText: 'Tittle'), controller: titleController,),
-            TextField(decoration: InputDecoration(labelText: 'Amount'), controller: amounController,),
+            TextField(decoration: InputDecoration(labelText: 'Tittle'), controller: titleController, keyboardType: TextInputType.text, onSubmitted: (_)=>_addTransaction()),
+            TextField(decoration: InputDecoration(labelText: 'Amount'), controller: amounController, keyboardType: TextInputType.number, onSubmitted: (_)=>_addTransaction(), ),
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all( Colors.red),
@@ -34,7 +42,7 @@ class CreateTransaction extends StatelessWidget {
                   side: BorderSide(color: Colors.red)
                 ))
               ),
-              child: Text('Add trasaction', style: TextStyle(color: Colors.white),), onPressed: ()=> _addTransaction(titleController.text, double.parse(amounController.text)),)
+              child: Text('Add trasaction', style: TextStyle(color: Colors.white),), onPressed: ()=> _addTransaction,)
           ],
         ),
       ),
